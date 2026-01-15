@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe - Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Register Container */
+        .register-container {
+            width: 100%;
+            max-width: 550px;
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 40px;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #000;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            border: 3px solid #000;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+        }
+
+        .logo-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .logo-subtitle {
+            font-size: 11px;
+            color: #000;
+            text-transform: uppercase;
+        }
+
+        /* Form Section */
+        .form-section {
+            margin-bottom: 25px;
+        }
+
+        .form-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            color: #000;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #000;
+            background-color: #fff;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border: 3px solid #000;
+        }
+
+        .form-input::placeholder {
+            color: #666;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #000;
+            background-color: #fff;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-input {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #000;
+            margin-right: 10px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-label {
+            font-size: 10px;
+            color: #000;
+            line-height: 1.4;
+        }
+
+        .checkbox-label a {
+            color: #000;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        .btn-register {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #000;
+            background-color: #000;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .btn-register:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #000;
+            background-color: #fff;
+            color: #000;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Links */
+        .link-section {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+        }
+
+        .link-text {
+            font-size: 11px;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        .link {
+            color: #000;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* Alert Box */
+        .alert-box {
+            padding: 12px 15px;
+            border: 2px solid #000;
+            background-color: #fff;
+            margin-bottom: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .alert-success {
+            border: 3px solid #000;
+        }
+
+        .alert-info {
+            border: 2px dashed #000;
+        }
+
+        /* Footer */
+        .register-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 10px;
+            color: #000;
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .register-container {
+                padding: 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+            }
+
+            .logo-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-icon">🏪</div>
+            <h1 class="logo-title">Bagus Putra POS</h1>
+            <p class="logo-subtitle">Point of Sale System</p>
+        </div>
+
+        <!-- Alert (Optional - can be hidden) -->
+        <!-- <div class="alert-box alert-info">
+            ℹ Silakan lengkapi form pendaftaran di bawah ini
+        </div> -->
+
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2 class="form-title">Daftar Akun Baru</h2>
+
+            <form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="nama-depan">Nama Depan</label>
+                        <input 
+                            type="text" 
+                            id="nama-depan" 
+                            class="form-input" 
+                            placeholder="Nama depan"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="nama-belakang">Nama Belakang</label>
+                        <input 
+                            type="text" 
+                            id="nama-belakang" 
+                            class="form-input" 
+                            placeholder="Nama belakang"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="contoh@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        class="form-input" 
+                        placeholder="Pilih username"
+                        required
+                    >
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input" 
+                            placeholder="Min. 8 karakter"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="confirm-password">Konfirmasi Password</label>
+                        <input 
+                            type="password" 
+                            id="confirm-password" 
+                            class="form-input" 
+                            placeholder="Ulangi password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="role">Role/Jabatan</label>
+                    <select id="role" class="form-select" required>
+                        <option value="">Pilih Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="kasir">Kasir</option>
+                        <option value="manager">Manager</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="telepon">No. Telepon</label>
+                    <input 
+                        type="tel" 
+                        id="telepon" 
+                        class="form-input" 
+                        placeholder="08xxxxxxxxxx"
+                        required
+                    >
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" class="checkbox-input" required>
+                    <label for="terms" class="checkbox-label">
+                        SAYA SETUJU DENGAN <a href="#">SYARAT & KETENTUAN</a> SERTA <a href="#">KEBIJAKAN PRIVASI</a> YANG BERLAKU
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-register">Daftar Sekarang</button>
+                <button type="button" class="btn-secondary">Reset Form</button>
+            </form>
+        </div>
+
+        <!-- Links Section -->
+        <div class="link-section">
+            <p class="link-text">
+                Sudah punya akun? <a href="#" class="link">Login di sini</a>
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="register-footer">
+            © 2025 Bagus Putra POS - All Rights Reserved
+        </div>
+    </div>
+</body>
+</html>
