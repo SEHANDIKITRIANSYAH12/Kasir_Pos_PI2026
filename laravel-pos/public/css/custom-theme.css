@@ -1,0 +1,122 @@
+/* Tema Warna Coklat untuk PD Bagus Putra */
+:root {
+    --bs-primary: #8B4513;       /* SaddleBrown */
+    --bs-primary-rgb: 139, 69, 19;
+    --bs-primary-dark: #5D2906;  /* Warna lebih gelap untuk hover/active */
+    --bs-primary-light: #A0522D; /* Sienna - Warna lebih terang */
+    --bs-secondary: #D2B48C;     /* Tan */
+    --bs-secondary-rgb: 210, 180, 140;
+    --bs-body-bg: #F5F5DC;       /* Beige - Warna background body */
+    --bs-body-color: #3E2723;    /* Brown darken-4 - Warna teks utama */
+    --bs-border-color: #D2B48C;  /* Warna border */
+}
+
+/* Override warna primary */
+.bg-gradient-primary {
+    background: linear-gradient(195deg, var(--bs-primary), var(--bs-primary-dark)) !important;
+}
+
+.btn-primary, .bg-primary {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--bs-primary-dark) !important;
+    border-color: var(--bs-primary-dark) !important;
+}
+
+.text-primary {
+    color: var(--bs-primary) !important;
+}
+
+/* Style untuk card dan form */
+.card {
+    border: none;
+    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, .15);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.input-group.input-group-outline .form-control {
+    border: 1px solid var(--bs-border-color);
+    background-color: transparent;
+}
+
+.input-group.input-group-outline .form-control:focus,
+.input-group.input-group-outline .form-control:valid {
+    border-color: var(--bs-primary) !important;
+    box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.25);
+}
+
+/* Style untuk sidebar dan navigasi */
+.sidenav {
+    background: linear-gradient(0deg, var(--bs-primary), var(--bs-primary-light));
+}
+
+/* Style untuk tombol */
+.btn {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Style untuk header */
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Style untuk input group */
+.input-group.input-group-outline .form-control {
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+/* Style untuk form check */
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+/* Style untuk link */
+a {
+    color: var(--bs-primary);
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+    color: var(--bs-primary-dark);
+    text-decoration: underline;
+}
+
+/* Style untuk badge */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(195deg, var(--bs-primary), var(--bs-primary-dark)) !important;
+}
+
+/* Style untuk gambar hero section */
+.position-relative.bg-cover {
+    background-size: cover;
+    background-position: center;
+}
+
+/* Style untuk teks di atas gambar */
+.text-white {
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Style untuk tombol di atas gambar */
+.bg-gradient-primary {
+    transition: all 0.3s ease;
+}
+
+.bg-gradient-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}

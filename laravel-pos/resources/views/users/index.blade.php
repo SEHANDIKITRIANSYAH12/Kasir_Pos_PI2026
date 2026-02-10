@@ -6,8 +6,16 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Daftar Pengguna</h5>
-                    <br><a href="{{ route('users.create') }}" class="btn btn-primary">Tambah Pengguna</a>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <a href="{{ route('users.create') }}" class="btn btn-primary">Tambah Pengguna</a>
+                    </div>
                 </div>
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="ni ni-notification-70"></i> {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -29,11 +37,15 @@
                                         <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                         <td>
                                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                            </form>
+                                            @if($user->id === auth()->id())
+                                                <button class="btn btn-danger btn-sm" disabled title="Tidak dapat menghapus akun sendiri">Hapus</button>
+                                            @else
+                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

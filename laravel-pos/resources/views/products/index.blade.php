@@ -6,7 +6,9 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Daftar Produk</h5>
-                    <br><a href="{{ route('products.create') }}" class="btn btn-primary">Tambah Produk Baru</a>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <a href="{{ route('products.create') }}" class="btn btn-primary">Tambah Produk Baru</a>
+                    </div>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -41,7 +43,14 @@
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->sku }}</td>
                                         <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
-                                        <td>{{ $product->stock }}</td>
+                                        <td>
+                                            <span class="badge {{ $product->stock <= 10 ? 'bg-warning' : 'bg-success' }}">
+                                                {{ $product->stock }}
+                                            </span>
+                                            @if($product->stock <= 10)
+                                                <i class="fas fa-exclamation-triangle text-warning ms-1" title="Stok rendah"></i>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                             <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">

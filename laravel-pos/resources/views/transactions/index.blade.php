@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="row">
                         @forelse ($products as $product)
-                            <div class="col-md-4 mb-3">
+                            <div class="col-6 col-md-4 mb-3">
                                 <div class="card h-100">
                                     @if ($product->image)
                                         <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="height: 150px; object-fit: cover;">
@@ -25,7 +25,7 @@
                                     <div class="card-body text-center">
                                         <h6 class="card-title">{{ $product->name }}</h6>
                                         <p class="card-text">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
-                                        <button class="btn btn-primary btn-sm" onclick="addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">Tambah</button>
+                                        <button class="btn btn-primary btn-sm" onclick="addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }}, {{ $product->stock }})">Tambah</button>
                                     </div>
                                 </div>
                             </div>
@@ -48,19 +48,21 @@
                 <div class="card-body">
                     <form action="{{ route('transactions.store') }}" method="POST" id="transaction-form">
                         @csrf
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Produk</th>
-                                    <th>Qty</th>
-                                    <th>Harga</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cart-items">
-                                <!-- Cart items will be injected here by JavaScript -->
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Produk</th>
+                                        <th>Qty</th>
+                                        <th>Harga</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart-items">
+                                    <!-- Cart items will be injected here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
 
                         <hr>
 
@@ -128,11 +130,21 @@
     });
     let cart = [];
 
-    function addToCart(id, name, price) {
+    function addToCart(id, name, price, stock) {
         const item = cart.find(i => i.id === id);
         if (item) {
+            // Cek apakah menambah qty akan melebihi stok
+            if (item.qty >= stock) {
+                alert(`Stok produk "${name}" hanya tersisa ${stock} pcs. Tidak bisa menambah lagi.`);
+                return;
+            }
             item.qty++;
         } else {
+            // Cek stok minimum
+            if (stock <= 5) {
+                const confirmAdd = confirm(`Peringatan: Stok produk "${name}" hanya tersisa ${stock} pcs. Tetap tambahkan ke keranjang?`);
+                if (!confirmAdd) return;
+            }
             cart.push({ id, name, price, qty: 1 });
         }
         updateCart();
@@ -201,13 +213,18 @@
         const paid = Number(document.getElementById('paid').value || 0);
         if (cart.length === 0) {
             e.preventDefault();
-            alert('Keranjang masih kosong!');
+            alert('Keranjang masih kosong! Silakan tambahkan produk terlebih dahulu.');
             return;
         }
         if (paid < total) {
             e.preventDefault();
             alert('Maaf, uang anda kurang dari total belanja');
             return;
+        }
+        // Konfirmasi sebelum submit
+        const confirmPay = confirm(`Apakah Anda yakin ingin membayar Rp ${total.toLocaleString('id-ID')}?`);
+        if (!confirmPay) {
+            e.preventDefault();
         }
     });
 </script>

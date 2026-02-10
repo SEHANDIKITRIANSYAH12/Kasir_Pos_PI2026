@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Hasil Laporan</h5>
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
                         <p class="text-sm mb-0">
                             Menampilkan laporan dari tanggal <strong>{{ \Carbon\Carbon::parse($startDate)->format('d F Y') }}</strong> sampai <strong>{{ \Carbon\Carbon::parse($endDate)->format('d F Y') }}</strong>
                         </p>
@@ -47,38 +47,45 @@
                         <strong>Total Pendapatan:</strong> Rp {{ number_format($totalRevenue, 0, ',', '.') }}
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No. Transaksi</th>
-                                    <th>Tanggal</th>
-                                    <th>Kasir</th>
-                                    <th>Total</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($transactions as $transaction)
+                    @if($transactions->count() > 0)
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ $transaction->id }}</td>
-                                        <td>{{ $transaction->created_at->format('d/m/Y H:i') }}</td>
-                                        <td>{{ $transaction->user->name }}</td>
-                                        <td>Rp {{ number_format($transaction->total, 0, ',', '.') }}</td>
-                                        <td>
-                                            <a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-info btn-sm">Lihat</a>
-                                        </td>
+                                        <th>No. Transaksi</th>
+                                        <th>Tanggal</th>
+                                        <th>Kasir</th>
+                                        <th>Total</th>
+                                        <th>Aksi</th>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center">Tidak ada transaksi pada rentang tanggal ini.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="mt-3">
-                        {{ $transactions->appends(request()->query())->links() }}
+                                </thead>
+                                <tbody>
+                                    @forelse ($transactions as $transaction)
+                                        <tr>
+                                            <td>{{ $transaction->id }}</td>
+                                            <td>{{ $transaction->created_at->format('d/m/Y H:i') }}</td>
+                                            <td>{{ $transaction->user->name }}</td>
+                                            <td>Rp {{ number_format($transaction->total, 0, ',', '.') }}</td>
+                                            <td>
+                                                <a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-info btn-sm">Lihat</a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">Tidak ada transaksi pada rentang tanggal ini.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3">
+                            {{ $transactions->appends(request()->query())->links() }}
+                        </div>
+                    @else
+                        <div class="alert alert-warning">
+                            <i class="ni ni-bell-55"></i> <strong>Tidak Ada Transaksi</strong> pada periode {{ $startDate }} hingga {{ $endDate }}.
+                        </div>
+                    @endif
                     </div>
                 </div>
             </div>

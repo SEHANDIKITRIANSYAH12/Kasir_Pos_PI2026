@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $isAdmin = $user->role == 'admin';
 
         // Query dasar untuk transaksi
-        $baseTransactionQuery = $isAdmin 
+        $baseTransactionQuery = $isAdmin
             ? \App\Models\Transaction::query()
             : \App\Models\Transaction::where('user_id', $user->id);
 
@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $todayTransactions = (clone $baseTransactionQuery)
             ->where('created_at', '>=', $today)
             ->count();
-            
+
         $todayRevenue = (clone $baseTransactionQuery)
             ->where('created_at', '>=', $today)
             ->sum('total');
@@ -40,18 +40,18 @@ class DashboardController extends Controller
         // Format data untuk chart.js
         $months = [];
         $revenues = [];
-        
+
         // Generate 6 bulan terakhir
         for ($i = 5; $i >= 0; $i--) {
             $date = now()->subMonths($i);
             $monthYear = $date->format('M Y');
             $months[] = $monthYear;
-            
+
             // Cari data untuk bulan ini
             $monthData = $revenueData->first(function ($item) use ($date) {
                 return $item->year == $date->year && $item->month == $date->month;
             });
-            
+
             $revenues[] = $monthData ? (int)$monthData->total : 0;
         }
 
@@ -73,7 +73,7 @@ class DashboardController extends Controller
                     'total' => $item->total_quantity
                 ];
             });
-            
+
         // Data stok produk yang hampir habis (stok <= 10)
         $lowStockProducts = \App\Models\Product::select('name', 'stock', 'price')
             ->where('stock', '<=', 10)

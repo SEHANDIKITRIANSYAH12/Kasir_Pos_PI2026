@@ -125,6 +125,10 @@
                 </div>
                 <div class="card-body p-3">
                     @if(count($lowStockProducts) > 0)
+                        <div class="alert alert-warning alert-dismissible fade show mb-3" role="alert">
+                            <i class="ni ni-bell-55"></i> <strong>Peringatan Stok!</strong> Ada {{ count($lowStockProducts) }} produk dengan stok rendah. Segera lakukan restok untuk menghindari kehabisan.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                         <div class="table-responsive">
                             <table class="table align-items-center mb-0">
                                 <thead>
